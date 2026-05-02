@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 
 <head>
     <meta charset="utf-8">
@@ -9,176 +9,118 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <link rel="shortcut icon" href="{{ favico_desa() }}" />
-    <link rel="stylesheet" href="{{ asset('css/login-style.css') }}" media="screen">
-    <link rel="stylesheet" href="{{ asset('css/login-form-elements.css') }}" media="screen">
-    <link rel="stylesheet" href="{{ asset('css/daftar-form-elements.css') }}" media="screen">
-    <link rel="stylesheet" href="{{ asset('css/siteman_mandiri.css') }}" media="screen">
-    <link rel="stylesheet" href="{{ asset('bootstrap/css/bootstrap.bar.css') }}" media="screen">
-    <!-- bootstrap datetimepicker -->
-    <link rel="stylesheet" href="{{ asset('bootstrap/css/bootstrap-datetimepicker.min.css') }}">
-    @if (is_file('desa/pengaturan/siteman/siteman_mandiri.css'))
-        <link rel="stylesheet" href="{{ base_url('desa/pengaturan/siteman/siteman_mandiri.css') }}">
-    @endif
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="{{ asset('bootstrap/css/font-awesome.min.css') }}">
-    <!-- Google Font -->
-    @if (cek_koneksi_internet())
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-    @endif
-    <script src="{{ asset('bootstrap/js/jquery.min.js') }}"></script>
 
-    @if ($cek_anjungan)
-        <!-- Keyboard Default (Ganti dengan keyboard-dark.min.css untuk tampilan lain)-->
-        <link rel="stylesheet" href="{{ asset('css/keyboard.min.css') }}">
-        <link rel="stylesheet" href="{{ asset('front/css/mandiri-keyboard.css') }}">
-    @endif
+    <!-- Tailwind CSS & Fonts -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            DEFAULT: '#0284c7',
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            200: '#bae6fd',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    @include('admin.layouts.components.token')
-
-    <style type="text/css">
-        body.login {
-            background-image: url('{{ default_file(LATAR_LOGIN . setting('latar_login_mandiri'), DEFAULT_LATAR_KEHADIRAN) }}');
+    <style>
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.85) 0%, rgba(30, 41, 59, 0.9) 100%), url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+        #konfirmasi-cookie, #aktifkan-cookie {
+            display: none !important;
         }
     </style>
+
+    <script src="{{ asset('bootstrap/js/jquery.min.js') }}"></script>
+    @include('admin.layouts.components.token')
 </head>
 
-<body class="login">
-    <div class="top-content">
-        <div class="inner-bg">
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm-6 col-sm-offset-4 form-box">
-                        <div class="form-top">
-                            <a href="{{ base_url('/') }}"><img src="{{ gambar_desa($desa['logo']) }}" alt="Lambang Desa" class="img-responsive" /></a>
-                            <div class="login-footer-top">
-                                <h1>LAYANAN MANDIRI<br />
-                                    {{ ucwords(setting('sebutan_desa')) }} {{ $desa['nama_desa'] }}</h1>
-                                <h3>
-                                    <br />{{ ucwords(setting('sebutan_kecamatan')) }} {{ $desa['nama_kecamatan'] }}
-                                    <br />{{ ucwords(setting('sebutan_kabupaten')) }} {{ $desa['nama_kabupaten'] }}
-                                    <br />{{ $desa['alamat_kantor'] }}
-                                    <br />Kodepos {{ $desa['kode_pos'] }}
-                                    <br /><br />Silakan hubungi operator desa untuk mendapatkan kode PIN anda.
-                                    <br /><br /><br />IP Address: {{ request()->ip() }}
-                                    <br />ID Pengunjung : <span id="pengunjung"></span>&nbsp;<span><a href="#" class="copy" title="Copy" style="color: white"><i class="fa fa-copy"></i></a></span>
-                                    @if ($cek_anjungan)
-                                        @if ($cek_anjungan['mac_address'])
-                                            <br />Mac Address : {{ $cek_anjungan['mac_address'] }}
-                                        @endif
-                                        <br />Anjungan Mandiri
-                                        {!! jecho($cek_anjungan['keyboard'] == 1, true, ' | Virtual Keyboard : Aktif') !!}
-                                    @endif
-                                </h3>
-                            </div>
+<body class="min-h-screen flex flex-col justify-between text-slate-300">
+
+    <div class="flex-1 flex items-center justify-center p-4 md:p-6">
+        <div class="max-w-4xl w-full bg-slate-900/60 backdrop-blur-md border border-slate-800 rounded-2xl shadow-2xl overflow-hidden grid grid-cols-1 md:grid-cols-2">
+            
+            {{-- Bagian Kiri: Welcome & Info --}}
+            <div class="p-8 md:p-12 flex flex-col justify-between bg-slate-800/40 border-r border-slate-800">
+                <div class="space-y-4">
+                    <a href="{{ base_url('/') }}" class="flex items-center gap-3 hover:opacity-90 transition">
+                        <img src="{{ gambar_desa($desa['logo']) }}" alt="Lambang Desa" class="w-14 h-14 object-contain" />
+                        <div>
+                            <h2 class="text-white text-lg font-bold leading-tight uppercase">{{ ucwords(setting('sebutan_desa')) }} {{ $desa['nama_desa'] }}</h2>
+                            <span class="text-xs text-primary-200 font-medium">Layanan Mandiri</span>
                         </div>
-                        <div class="form-bottom">
+                    </a>
+                    <p class="text-sm text-slate-400 leading-relaxed pt-2">
+                        Silakan hubungi operator desa atau kunjungi kantor desa untuk mendapatkan kode PIN Anda guna mengakses Layanan Mandiri.
+                    </p>
+                </div>
 
-                            @php
-                                preg_match('/(\d+)/', $errors->first('email'), $matches);
-
-                                $second = $matches[0] ?? 0;
-                            @endphp
-
-                            @if ($errors->any())
-                                <div @if (!str_contains($errors->first('email'), 'Terlalu banyak upaya masuk.')) id="notif" @endif class="alert alert-danger">
-                                    @foreach ($errors->all() as $item)
-                                        @if (str_contains($item, 'Terlalu banyak upaya masuk.'))
-                                            <p id="countdown">{{ $item }}</p>
-                                        @else
-                                            <p>{{ $item }}</p>
-                                        @endif
-                                    @endforeach
-                                </div>
-                            @endif
-
-                            @if ($notif = $ci->session->flashdata('notif'))
-                                <div id="notif" class="alert alert-danger">
-                                    <p>{{ $notif }}</p>
-                                </div>
-                            @endif
-
-                            @yield('content')
-
-                            <div class="login-footer-bottom">
-                                <a href="https://github.com/OpenSID/OpenSID" class="content-color-secondary" rel="noopener noreferrer" target="_blank">OpenSID v<?= AmbilVersi() ?></a>
-                            </div>
-                        </div>
-                    </div>
+                <div class="space-y-3 mt-8 pt-4 border-t border-slate-800/60 text-xs text-slate-400">
+                    <p class="flex items-center gap-2"><i class="fa fa-map-marker-alt text-primary-200"></i> {{ $desa['alamat_kantor'] }}, Kodepos {{ $desa['kode_pos'] }}</p>
+                    <p class="flex items-center gap-2"><i class="fa fa-info-circle text-primary-200"></i> IP Address: {{ request()->ip() }}</p>
                 </div>
             </div>
+
+            {{-- Bagian Kanan: Form --}}
+            <div class="p-8 md:p-12 flex flex-col justify-center">
+                <div class="mb-6">
+                    <h3 class="text-xl font-bold text-white mb-1">Masuk ke Akun</h3>
+                    <p class="text-xs text-slate-400">Gunakan NIK dan PIN Anda untuk melanjutkan.</p>
+                </div>
+
+                {{-- Alert Notification --}}
+                @if ($errors->any())
+                    <div class="mb-4 bg-red-500/10 border border-red-500/20 text-red-300 p-3 rounded-xl text-xs space-y-1">
+                        @foreach ($errors->all() as $item)
+                            <p id="countdown">{{ $item }}</p>
+                        @endforeach
+                    </div>
+                @endif
+
+                @if ($notif = $ci->session->flashdata('notif'))
+                    <div class="mb-4 bg-red-500/10 border border-red-500/20 text-red-300 p-3 rounded-xl text-xs">
+                        <p>{{ $notif }}</p>
+                    </div>
+                @endif
+
+                @yield('content')
+            </div>
+
         </div>
     </div>
+
+    {{-- Bottom Footer --}}
+    <footer class="text-center p-4 border-t border-slate-800/60 text-xs text-slate-500 font-medium">
+        &copy; {{ date('Y') }} {{ ucwords($desa['nama_desa']) }} &mdash; 
+        Tema <strong class="text-primary-200">Fresh</strong> &bull;
+        <a href="https://github.com/OpenSID/OpenSID" class="text-slate-400 hover:text-white transition" target="_blank">OpenSID v<?= AmbilVersi() ?></a>
+    </footer>
 
     @include('admin.layouts.components.konfirmasi_cookie', ['cookie_name' => 'pengunjung'])
     @include('admin.layouts.components.aktifkan_cookie')
 
-    <!-- jQuery 3 -->
-    <script src="{{ asset('bootstrap/js/jquery.min.js') }}"></script>
-    <!-- Bootstrap 3.3.7 -->
+    <!-- jQuery & Scripts -->
     <script src="{{ asset('bootstrap/js/bootstrap.min.js') }}"></script>
-    <!-- bootstrap Moment -->
-    <script src="{{ asset('bootstrap/js/moment.min.js') }}"></script>
-    <script src="{{ asset('bootstrap/js/moment-timezone.js') }}"></script>
-    <script src="{{ asset('bootstrap/js/moment-timezone-with-data.js') }}"></script>
-    <!-- bootstrap Date time picker -->
-    <script src="{{ asset('bootstrap/js/bootstrap-datetimepicker.min.js') }}"></script>
-    <script src="{{ asset('bootstrap/js/id.js') }}"></script>
-    <!-- SlimScroll -->
-    <script src="{{ asset('bootstrap/js/jquery.slimscroll.min.js') }}"></script>
-    <!-- FastClick -->
-    <script src="{{ asset('bootstrap/js/fastclick.js') }}"></script>
-    <!-- AdminLTE App -->
-    <script src="{{ asset('js/adminlte.min.js') }}"></script>
-    <!-- Validasi -->
     <script src="{{ asset('js/jquery.validate.min.js') }}"></script>
     <script src="{{ asset('js/validasi.js') }}"></script>
-    <script src="{{ asset('js/localization/messages_id.js') }}"></script>
-
-    @if ($cek_anjungan)
-        <!-- keyboard widget css & script -->
-        <script src="{{ asset('js/jquery.keyboard.min.js') }}"></script>
-        <script src="{{ asset('js/jquery.mousewheel.min.js') }}"></script>
-        <script src="{{ asset('js/jquery.keyboard.extension-all.min.js') }}"></script>
-        <script src="{{ asset('front/js/mandiri-keyboard.js') }}"></script>
-    @endif
     <script src="{{ asset('js/id_browser.js') }}"></script>
-    <script>
-        function start_countdown() {
-            let totalSeconds = {{ $second }};
-            const timer = setInterval(function() {
-                const minutes = Math.floor(totalSeconds / 60);
-                const seconds = totalSeconds % 60;
-
-                if (totalSeconds <= 0) {
-                    clearInterval(timer);
-                    location.reload();
-                } else {
-                    document.getElementById("countdown").innerHTML = `Terlalu banyak upaya masuk. Silakan coba lagi dalam ${minutes} menit ${seconds} detik.`;
-                    totalSeconds--;
-                }
-            }, 1000);
-        }
-
-        $(document).ready(function() {
-            if ($('#pin').length) {
-                $('#pin').focus();
-            } else if ($('#tag').length) {
-                $('#tag').focus();
-            }
-
-            if ($('#countdown').length) {
-                start_countdown();
-            }
-
-            window.setTimeout(function() {
-                $("#notif").fadeTo(500, 0).slideUp(500, function() {
-                    $(this).remove();
-                });
-            }, 5000);
-        });
-    </script>
 
     @stack('script')
 </body>

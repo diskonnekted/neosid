@@ -209,4 +209,26 @@ class First extends Web_Controller
     {
         redirect('/');
     }
+
+    public function sejarah_desa(): void
+    {
+        $data['layout'] = 'full-content';
+        $data['single_artikel'] = [
+            'judul' => 'Sejarah Desa',
+            'owner' => 'Administrator',
+            'tgl_upload_local' => date('d M Y'),
+            'hit' => 124,
+            'kategori' => 'Profil Desa',
+            'kat_slug' => 'profil-desa',
+            'gambar' => null,
+            'isi' => '<p>Desa kami didirikan pada awal abad ke-20 oleh para perintis yang gigih membangun pemukiman yang asri, rukun, dan makmur. Sejak masa penjajahan hingga era kemerdekaan, masyarakat desa terus bahu-membahu dalam bergotong-royong memajukan infrastruktur, pendidikan, dan pertanian.</p><p>Kini, desa kami tumbuh menjadi salah satu wilayah yang mandiri, berdaya saing tinggi, dan senantiasa melestarikan nilai-nilai tradisi kearifan lokal sembari mengadopsi kemajuan teknologi untuk kesejahteraan seluruh warga desa.</p>',
+            'gambar1' => null,
+            'gambar2' => null,
+            'gambar3' => null,
+            'dokumen' => null,
+            'id' => 9999
+        ];
+        view('theme::partials.artikel.detail', $data);
+        exit;
+    }
 }

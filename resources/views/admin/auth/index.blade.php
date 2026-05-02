@@ -1,82 +1,120 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 
 <head>
-    <meta charset="UTF-8">
-    <title>{{ setting('login_title') . ' ' . ucwords(setting('sebutan_desa')) . ($header['nama_desa'] ? ' ' . $header['nama_desa'] : '') . get_dynamic_title_page_from_path() }}</title>
+    <meta charset="utf-8">
+    <title>
+        {{ setting('login_title') . ' ' . ucwords(setting('sebutan_desa')) . ($header['nama_desa'] ? ' ' . $header['nama_desa'] : '') . get_dynamic_title_page_from_path() }}
+    </title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex">
-    <link rel="stylesheet" href="{{ asset('css/login-style.css') }}" media="screen">
-    <link rel="stylesheet" href="{{ asset('css/login-form-elements.css') }}" media="screen">
-    <link rel="stylesheet" href="{{ asset('bootstrap/css/bootstrap.bar.css') }}" media="screen">
-    @if (is_file('desa/pengaturan/siteman/siteman.css'))
-        <link rel='stylesheet' href="{{ base_url('desa/pengaturan/siteman/siteman.css') }}">
-    @endif
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="shortcut icon" href="{{ favico_desa() }}" />
-    <style type="text/css">
-        body.login {
-            background-image: url('{{ $latar_login }}');
+
+    <!-- Tailwind CSS & Fonts -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            DEFAULT: '#0284c7',
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            200: '#bae6fd',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.85) 0%, rgba(30, 41, 59, 0.9) 100%), url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
         }
     </style>
+
     <script src="{{ asset('bootstrap/js/jquery.min.js') }}"></script>
-    <script src="{{ asset('js/jquery.validate.min.js') }}"></script>
-    <script src="{{ asset('js/validasi.js') }}"></script>
-    <script src="{{ asset('js/localization/messages_id.js') }}"></script>
     @include('admin.layouts.components.token')
 </head>
 
-<body class="login">
-    <div class="top-content">
-        <div class="inner-bg">
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm-4 col-sm-offset-4 form-box">
-                        <div class="form-top">
-                            <a href="{{ site_url() }}">
-                                <img src="{{ gambar_desa($header['logo']) }}" alt="{{ $header['nama_desa'] }}" class="img-responsive" style="width: 100px;" />
-                                @if (setting('tte'))
-                                    <img src="{{ $logo_bsre }}" alt="Bsre" class="img-responsive" style="width: 200px;" />
-                                @endif
-                            </a>
-                            <div class="login-footer-top">
-                                <h1>{{ ucwords(setting('sebutan_desa')) }} {{ $header['nama_desa'] }}</h1>
-                                <h3>
-                                    <br />{{ $header['alamat_kantor'] }}<br />Kodepos {{ $header['kode_pos'] }}
-                                    <br />{{ ucwords(setting('sebutan_kecamatan')) }} {{ $header['nama_kecamatan'] }}<br />{{ ucwords(setting('sebutan_kabupaten')) }} {{ $header['nama_kabupaten'] }}
-                                </h3>
-                            </div>
-                            @if ($errors?->any())
-                                <div class="alert alert-danger">
-                                    @foreach ($errors->all() as $item)
-                                        @if (str_contains($item, 'Terlalu banyak upaya masuk.'))
-                                            <p id="countdown">{{ $item }}</p>
-                                        @else
-                                            <p>{{ $item }}</p>
-                                        @endif
-                                    @endforeach
-                                </div>
-                            @endif
-                            @if ($notif = session('notif'))
-                                <div class="alert alert-danger">
-                                    <p>{{ $notif }}</p>
-                                </div>
-                            @endif
-                        </div>
-                        <div class="form-bottom">
+<body class="min-h-screen flex flex-col justify-between text-slate-300">
 
-                            @yield('content')
-
-                            <hr style="margin-top: 5px; margin-bottom: 5px;" />
-                            <div class="login-footer-bottom"><a href="https://github.com/OpenSID/OpenSID" target="_blank">OpenSID</a> v{{ AmbilVersi() }}</div>
+    <div class="flex-1 flex items-center justify-center p-4 md:p-6">
+        <div class="max-w-4xl w-full bg-slate-900/60 backdrop-blur-md border border-slate-800 rounded-2xl shadow-2xl overflow-hidden grid grid-cols-1 md:grid-cols-2">
+            
+            {{-- Bagian Kiri: Welcome & Info --}}
+            <div class="p-8 md:p-12 flex flex-col justify-between bg-slate-800/40 border-r border-slate-800">
+                <div class="space-y-4">
+                    <a href="{{ site_url() }}" class="flex items-center gap-3 hover:opacity-90 transition">
+                        <img src="{{ gambar_desa($header['logo']) }}" alt="{{ $header['nama_desa'] }}" class="w-14 h-14 object-contain" />
+                        <div>
+                            <h2 class="text-white text-lg font-bold leading-tight uppercase">{{ ucwords(setting('sebutan_desa')) }} {{ $header['nama_desa'] }}</h2>
+                            <span class="text-xs text-primary-200 font-medium">Sistem Informasi Desa</span>
                         </div>
-                    </div>
+                    </a>
+                    <p class="text-sm text-slate-400 leading-relaxed pt-2">
+                        Selamat datang di portal administrasi sistem informasi desa. Silakan gunakan kredensial resmi Anda untuk masuk ke sistem.
+                    </p>
+                </div>
+
+                <div class="space-y-3 mt-8 pt-4 border-t border-slate-800/60 text-xs text-slate-400">
+                    <p class="flex items-center gap-2"><i class="fa fa-map-marker-alt text-primary-200"></i> {{ $header['alamat_kantor'] }}, Kodepos {{ $header['kode_pos'] }}</p>
+                    <p class="flex items-center gap-2"><i class="fa fa-info-circle text-primary-200"></i> IP Address: {{ request()->ip() }}</p>
                 </div>
             </div>
+
+            {{-- Bagian Kanan: Form --}}
+            <div class="p-8 md:p-12 flex flex-col justify-center">
+                <div class="mb-6">
+                    <h3 class="text-xl font-bold text-white mb-1">Masuk Admin</h3>
+                    <p class="text-xs text-slate-400">Gunakan akun administrator Anda untuk melanjutkan.</p>
+                </div>
+
+                {{-- Alert Notification --}}
+                @if ($errors?->any())
+                    <div class="mb-4 bg-red-500/10 border border-red-500/20 text-red-300 p-3 rounded-xl text-xs space-y-1">
+                        @foreach ($errors->all() as $item)
+                            <p id="countdown">{{ $item }}</p>
+                        @endforeach
+                    </div>
+                @endif
+
+                @if ($notif = session('notif'))
+                    <div class="mb-4 bg-red-500/10 border border-red-500/20 text-red-300 p-3 rounded-xl text-xs">
+                        <p>{{ $notif }}</p>
+                    </div>
+                @endif
+
+                @yield('content')
+            </div>
+
         </div>
     </div>
 
-    @stack('js')
+    {{-- Bottom Footer --}}
+    <footer class="text-center p-4 border-t border-slate-800/60 text-xs text-slate-500 font-medium">
+        &copy; {{ date('Y') }} {{ ucwords($header['nama_desa']) }} &mdash; 
+        Tema <strong class="text-primary-200">Fresh</strong> &bull;
+        <a href="https://github.com/OpenSID/OpenSID" class="text-slate-400 hover:text-white transition" target="_blank">OpenSID v{{ AmbilVersi() }}</a>
+    </footer>
 
+    <!-- jQuery & Scripts -->
+    <script src="{{ asset('js/jquery.validate.min.js') }}"></script>
+    <script src="{{ asset('js/validasi.js') }}"></script>
+
+    @stack('js')
 </body>
 
 </html>

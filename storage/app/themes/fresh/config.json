@@ -1,0 +1,50 @@
+[
+    {
+        "judul": "Warna Utama",
+        "key": "primary_color",
+        "value": "#2563eb",
+        "type": "input-color",
+        "keterangan": "Warna utama tema Fresh",
+        "options": null,
+        "attributes": {},
+        "readonly": false,
+        "link": true,
+        "group": "Tampilan"
+    },
+    {
+        "judul": "Jumlah Artikel Terbaru di Beranda",
+        "key": "jumlah_artikel_beranda",
+        "value": 6,
+        "type": "input-number",
+        "keterangan": "Jumlah artikel yang ditampilkan di halaman beranda",
+        "options": null,
+        "attributes": { "min": 3, "max": 12, "step": 1 },
+        "readonly": false,
+        "link": true,
+        "group": "Beranda"
+    },
+    {
+        "judul": "Jumlah Pembangunan Perhalaman",
+        "key": "jumlah_pembangunan_perhalaman",
+        "value": 10,
+        "type": "input-number",
+        "keterangan": "Jumlah pembangunan yang ditampilkan dalam satu halaman",
+        "options": null,
+        "attributes": { "min": 1, "max": 50, "step": 1 },
+        "readonly": false,
+        "link": true,
+        "group": "Pembangunan"
+    },
+    {
+        "judul": "Jumlah Pengaduan Perhalaman",
+        "key": "jumlah_pengaduan_perhalaman",
+        "value": 10,
+        "type": "input-number",
+        "keterangan": "Jumlah pengaduan yang ditampilkan dalam satu halaman",
+        "options": null,
+        "attributes": { "min": 1, "max": 50, "step": 1 },
+        "readonly": false,
+        "link": true,
+        "group": "Pengaduan"
+    }
+]

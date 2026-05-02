@@ -63,6 +63,7 @@ Route::group('/first/artikel', static function (): void {
 
 // Rute untuk Artikel Baru
 Route::group('/artikel', static function (): void {
+    Route::get('sejarah-desa', 'First@sejarah_desa');
     Route::get('/kategori/{id}/{p?}', 'First@kategori');
     Route::get('{id}', 'First@artikel');
     Route::get('{thn}/{bln}/{tgl}/{slug}', 'First@artikel');

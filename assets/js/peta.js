@@ -531,19 +531,26 @@ function getBaseLayers(peta, access_token, jenis_peta) {
 }
 
 function validateTokenMapbox(access_token) {
+  if (!access_token || access_token.trim() === '') {
+    return false;
+  }
   var isValid = false;
 
-  $.ajax({
-    url: `https://api.mapbox.com/styles/v1/mapbox/streets-v11?access_token=${access_token}`,
-    type: 'GET',
-    async: false,
-    success: function (response) {
-      isValid = true; // Token is valid
-    },
-    error: function (xhr, status, error) {
-      console.error("Error validating token:", error);
-    }
-  });
+  try {
+    $.ajax({
+      url: `https://api.mapbox.com/styles/v1/mapbox/streets-v11?access_token=${access_token}`,
+      type: 'GET',
+      async: false,
+      success: function (response) {
+        isValid = true; // Token is valid
+      },
+      error: function (xhr, status, error) {
+        console.error("Error validating token:", error);
+      }
+    });
+  } catch (e) {
+    console.error("Error catch validating token:", e);
+  }
 
   return isValid;
 }
