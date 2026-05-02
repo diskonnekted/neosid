@@ -4,6 +4,9 @@
 
 NeoSID adalah platform Sistem Informasi Desa (SID) mutakhir yang dirancang untuk mempercepat transformasi digital di tingkat desa. Dibangun dengan fokus pada kemudahan penggunaan, estetika modern, keamanan data, dan kinerja optimal, NeoSID siap mendukung desa-desa di seluruh Indonesia agar semakin mandiri dan berdaya saing tinggi.
 
+> [!NOTE]
+> NeoSID merupakan pengembangan pribadi yang berbasis pada aplikasi open source [OpenSID](https://github.com/OpenSID/OpenSID). Seluruh hak cipta awal dan kontribusi awal dari komunitas serta para pengembang OpenSID sangat diapresiasi dan diakui sepenuhnya dalam pengembangan proyek ini.
+
 ---
 
 ## 🌟 Fitur Utama
