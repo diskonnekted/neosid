@@ -113,10 +113,10 @@
             @if ($menus_to_render)
                 @foreach ($menus_to_render as $menu)
                     @php $has_dropdown = count($menu['childrens'] ?? []) > 0 @endphp
-                    <li @if($has_dropdown) x-data="{open:false}" @endif class="relative">
+                    <li @if($has_dropdown) x-data="{open:false}" @mouseover="open=true" @mouseleave="open=false" @endif class="relative group">
                         @php $menu_link = $has_dropdown ? '#!' : $menu['link_url'] @endphp
                         <a href="{{ $menu_link }}"
-                           @if($has_dropdown) @click.prevent="open=!open" @mouseover="open=true" @mouseleave="open=false" @endif>
+                           @if($has_dropdown) @click.prevent="open=!open" @endif>
                             {!! $menu['nama'] !!}
                             @if($has_dropdown)
                                 <i class="fa fa-chevron-down" style="font-size:11px"></i>
