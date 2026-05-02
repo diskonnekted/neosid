@@ -12,7 +12,7 @@
 
 <div class="box box-primary box-solid mb-6">
     <div class="box-header bg-primary text-white p-4 rounded-t-xl flex items-center justify-between">
-        <h3 class="box-title text-base font-bold flex items-center gap-2">
+        <h3 class="box-title text-base font-bold flex items-center gap-2" style="color: #ffffff !important;">
             <i class="fas fa-share-alt mr-1"></i> {{ $judul_widget ?? 'Media Sosial' }}
         </h3>
     </div>
