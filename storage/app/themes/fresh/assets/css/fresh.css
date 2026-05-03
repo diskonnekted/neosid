@@ -44,8 +44,9 @@ img { max-width: 100%; }
 .fresh-nav > li > a svg { width: 14px; height: 14px; }
 
 /* Dropdown */
-.fresh-dropdown { position: absolute; top: calc(100% + 8px); left: 0; background: var(--fresh-surface); border: 1px solid var(--fresh-border); border-radius: var(--fresh-radius-lg); box-shadow: var(--fresh-shadow-md); min-width: 200px; padding: 6px; display: none; z-index: 999; }
-.fresh-nav > li:hover .fresh-dropdown { display: block; }
+.fresh-dropdown { position: absolute; top: calc(100% + 4px); left: 0; background: var(--fresh-surface); border: 1px solid var(--fresh-border); border-radius: var(--fresh-radius-lg); box-shadow: var(--fresh-shadow-md); min-width: 200px; padding: 6px; display: none; z-index: 999; }
+.fresh-dropdown::before { content: ''; position: absolute; top: -16px; left: 0; right: 0; height: 16px; background: transparent; }
+.fresh-nav > li:hover .fresh-dropdown { display: block !important; }
 .fresh-dropdown a { display: block; padding: 8px 12px; border-radius: var(--fresh-radius); font-size: 13px; color: var(--fresh-text); }
 .fresh-dropdown a:hover { background: #f8fafc; color: var(--fresh-primary); }
 
