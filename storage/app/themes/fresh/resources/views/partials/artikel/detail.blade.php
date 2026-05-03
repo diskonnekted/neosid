@@ -27,17 +27,17 @@
         <div class="max-w-4xl mx-auto space-y-6">
             
             {{-- Modern Breadcrumb --}}
-            <nav role="navigation" aria-label="navigation" class="flex py-3 px-4 bg-slate-50/80 dark:bg-slate-800/50 backdrop-blur border border-slate-100 dark:border-slate-800/80 rounded-xl text-xs sm:text-sm font-medium">
-                <ol class="inline-flex items-center space-x-1 md:space-x-2 text-slate-500 dark:text-slate-400">
+            <nav role="navigation" aria-label="navigation" class="flex py-3 px-4 bg-slate-50/80 backdrop-blur border border-slate-100 rounded-xl text-xs sm:text-sm font-medium" style="background: #f8fafc !important; color: #1e293b !important;">
+                <ol class="inline-flex items-center space-x-1 md:space-x-2 text-slate-500">
                     <li class="inline-flex items-center">
-                        <a href="{{ ci_route() }}" class="inline-flex items-center hover:text-primary-600 dark:hover:text-primary-400 transition">
+                        <a href="{{ ci_route() }}" class="inline-flex items-center hover:text-primary-600 transition" style="color: #1e293b !important;">
                             <i class="fas fa-home mr-2 text-xs"></i>Beranda
                         </a>
                     </li>
                     <li class="flex items-center">
-                        <span class="mx-1 text-slate-300 dark:text-slate-600">/</span>
+                        <span class="mx-1 text-slate-300">/</span>
                         @if ($post['kategori'])
-                            <a href="{{ ci_route("{$alt_slug}.kategori.{$post['kat_slug']}") }}" class="hover:text-primary-600 dark:hover:text-primary-400 transition">
+                            <a href="{{ ci_route("{$alt_slug}.kategori.{$post['kat_slug']}") }}" class="hover:text-primary-600 transition" style="color: #1e293b !important;">
                                 {{ $post['kategori'] }}
                             </a>
                         @else
@@ -48,26 +48,26 @@
             </nav>
 
             {{-- Main Article Card --}}
-            <div class="bg-white dark:bg-slate-900/60 backdrop-blur-md border border-slate-100 dark:border-slate-800 rounded-2xl p-6 md:p-10 shadow-sm transition hover:shadow-md">
+            <div class="bg-white border border-slate-100 rounded-2xl p-6 md:p-10 shadow-sm transition hover:shadow-md" style="background: #ffffff !important; color: #1e293b !important;">
                 
                 {{-- Heading Section --}}
                 <header class="space-y-4 mb-8">
-                    <h1 class="text-2xl md:text-4xl font-extrabold text-slate-800 dark:text-white tracking-tight leading-tight">
+                    <h1 class="text-2xl md:text-4xl font-extrabold text-slate-800 tracking-tight leading-tight" style="color: #1e293b !important;">
                         {{ $post['judul'] }}
                     </h1>
 
                     {{-- Metadata Info --}}
-                    <div class="flex flex-wrap items-center gap-3 text-xs sm:text-sm text-slate-500 dark:text-slate-400 border-b border-slate-100 dark:border-slate-800 pb-5">
-                        <span class="flex items-center gap-1.5 font-semibold text-slate-700 dark:text-slate-300 bg-slate-50 dark:bg-slate-800/80 px-3 py-1.5 rounded-lg border border-slate-100 dark:border-slate-700">
+                    <div class="flex flex-wrap items-center gap-3 text-xs sm:text-sm text-slate-600 border-b border-slate-100 pb-5" style="color: #334155 !important;">
+                        <span class="flex items-center gap-1.5 font-semibold text-slate-700 bg-slate-50 px-3 py-1.5 rounded-lg border border-slate-100" style="background: #f1f5f9 !important; color: #1e293b !important;">
                             <i class="fas fa-user-circle text-primary-500"></i>
                             {{ $post['owner'] }}
                             <i class="fas fa-check-circle text-green-500 text-xs"></i>
                         </span>
-                        <span class="flex items-center gap-1.5">
+                        <span class="flex items-center gap-1.5" style="color: #1e293b !important;">
                             <i class="fas fa-calendar-alt text-primary-500"></i>
                             {{ $post['tgl_upload_local'] }}
                         </span>
-                        <span class="flex items-center gap-1.5">
+                        <span class="flex items-center gap-1.5" style="color: #1e293b !important;">
                             <i class="fas fa-eye text-primary-500"></i>
                             Dibaca {{ hit($post['hit']) }}
                         </span>
@@ -77,15 +77,19 @@
                 {{-- Image & Content Section --}}
                 <div class="space-y-6">
                     @if ($post['gambar'] && is_file(LOKASI_FOTO_ARTIKEL . 'sedang_' . $post['gambar']))
-                        <div class="overflow-hidden rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-lg transition duration-300">
+                        <div class="overflow-hidden rounded-2xl border border-slate-100 shadow-sm hover:shadow-lg transition duration-300">
                             <a href="{{ AmbilFotoArtikel($post['gambar'], 'sedang') }}" class="block" data-fancybox="images">
                                 <img src="{{ AmbilFotoArtikel($post['gambar'], 'sedang') }}" alt="{{ $post['judul'] }}" class="w-full h-auto max-h-[460px] object-cover hover:scale-101 transition duration-500">
                             </a>
                         </div>
+                    @elseif (str_contains($_SERVER['REQUEST_URI'] ?? '', 'sejarah-desa'))
+                        <div class="overflow-hidden rounded-2xl border border-slate-100 shadow-sm hover:shadow-lg transition duration-300">
+                            <img src="{{ base_url('assets/files/logo/sejarah_desa_cover.png') }}" alt="{{ $post['judul'] }}" class="w-full h-auto max-h-[460px] object-cover hover:scale-101 transition duration-500" style="background: #ffffff !important;">
+                        </div>
                     @endif
 
                     {{-- Dynamic HTML Content --}}
-                    <div class="prose dark:prose-invert prose-slate max-w-none prose-headings:font-bold prose-a:text-primary-600 hover:prose-a:text-primary-500 prose-img:rounded-2xl prose-img:shadow-sm text-slate-600 dark:text-slate-300 leading-relaxed tracking-normal pt-2">
+                    <div class="prose prose-slate max-w-none prose-headings:font-bold prose-a:text-primary-600 hover:prose-a:text-primary-500 prose-img:rounded-2xl prose-img:shadow-sm text-slate-700 leading-relaxed tracking-normal pt-2" style="color: #1e293b !important;">
                         {!! $post['isi'] !!}
                     </div>
 
