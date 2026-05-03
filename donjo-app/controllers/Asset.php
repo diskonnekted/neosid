@@ -65,7 +65,7 @@ class Asset extends Web_Controller
     private function serveAsset($rootPath)
     {
         $request = request();
-        $path    = $this->cleanFilePath($request->query('file', ''));
+        $path    = str_replace('/', DIRECTORY_SEPARATOR, $this->cleanFilePath($request->query('file', '')));
 
         try {
             $primaryDisk = Storage::build([

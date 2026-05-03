@@ -92,9 +92,22 @@ if (! function_exists('menu_anjungan')) {
  */
 function icon_menu_anjungan(?string $nama_file): string
 {
-    if (is_file(FCPATH . LOKASI_ICON_MENU_ANJUNGAN . $nama_file)) {
+    if ($nama_file && is_file(FCPATH . LOKASI_ICON_MENU_ANJUNGAN . $nama_file)) {
         return base_url(LOKASI_ICON_MENU_ANJUNGAN . $nama_file);
     }
 
-    return base_url(LOKASI_ICON_MENU_ANJUNGAN_DEFAULT . 'menu.png');
+    if ($nama_file && is_file(base_path("Modules/Anjungan/Views/assets/images/icon/" . $nama_file))) {
+        return module_asset('anjungan', 'images/icon/' . $nama_file);
+    }
+
+    if ($nama_file && is_file(base_path("Modules/Anjungan/Views/assets/images/" . $nama_file))) {
+        return module_asset('anjungan', 'images/' . $nama_file);
+    }
+
+    $base_name = $nama_file ? pathinfo($nama_file, PATHINFO_FILENAME) : '';
+    if ($base_name && is_file(base_path("Modules/Anjungan/Views/assets/images/icon/" . $base_name . '.png'))) {
+        return module_asset('anjungan', 'images/icon/' . $base_name . '.png');
+    }
+
+    return module_asset('anjungan', 'images/menu.png');
 }
